@@ -43,7 +43,7 @@ public class annealing {
 		
 		int blocklength=0;
 		for(int i=0;i<layer;i++){
-			System.out.println("layer:yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy "+i+" "+blocks[startnum[i]][0]);
+			//System.out.println("layer:yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy "+i+" "+blocks[startnum[i]][0]);
 			n=0;
 			String[][] blocks3=annl.annlayer(startnum[i], endnum[i], blocks, count, xs, ys, xe, ye);
 			int lines2=0;
@@ -82,6 +82,8 @@ public class annealing {
 		int save=0;
 		int stn=startnum;
 		int lines=0;
+		double diszong1=0;
+		double diszong2=0;
 		
 		for(int i=0;i<endnum-startnum+1;i++){
 			blocks2[i]=new String[blocks[stn].length];
@@ -107,13 +109,13 @@ public class annealing {
 		stn=startnum;
 		double[] yee=new double[endnum-startnum];
 		for(int i=0;i<yee.length;i++){
-			yee[i]=ys[stn];
+			yee[i]=ye[stn];
 			stn++;
 		}
 		stn=startnum;
 		double[] xee=new double[endnum-startnum];
 		for(int i=0;i<xee.length;i++){
-			xee[i]=ys[stn];
+			xee[i]=xe[stn];
 			stn++;
 		}
 		/*
@@ -128,7 +130,21 @@ public class annealing {
 		
 		//double olddis=dis;
 		//System.out.println("dis=========="+dis+"startnum======="+startnum);
+		for(int i=0;i<endnum-startnum-1;i++){
+			//double distance21=Math.sqrt(Math.abs((xee[i-1] - xss[i])* (xee[i-1] - xss[i])+(yee[i-1] - yss[i])* (yee[i-1] - yss[i])));
+			double distancezong1=Math.sqrt(Math.abs((xee[i]- xss[i+1])* (xee[i] - xss[i+1])+(yee[i] - yss[i+1])* (yee[i] - yss[i+1])));
+			//double distance1=distance12;
+			//System.out.println("temp=========="+distance1);
+			diszong1=diszong1+distancezong1;
+			//System.out.println(diszong1+" "+distancezong1+" "+i);
+		}
+		dis=diszong1;
+		
 		for(int loop=0;loop<100;loop++){
+			double dis2=0;
+			double olddis=0;
+			
+			
 			int r1=r.nextInt(endnum-startnum-2)+1;
 			int r2=r.nextInt(endnum-startnum-2)+1;
 			
@@ -140,7 +156,7 @@ public class annealing {
 			
 			
 			double xstemp1=xss[r1];
-			double xetemp1=xee[r1];
+			double xetemp1=xee[r1]; 
 			double ystemp1=yss[r1];
 			double yetemp1=yee[r1];
 			double xstemp2=xss[r2];
@@ -148,7 +164,7 @@ public class annealing {
 			double ystemp2=yss[r2];
 			double yetemp2=yee[r2];
 			
-			/*
+			
 			xss[r1]=xstemp2;
 			yss[r1]=ystemp2;
 			xee[r1]=xetemp2;
@@ -157,44 +173,48 @@ public class annealing {
 			yss[r2]=ystemp1;
 			xee[r2]=xetemp1;
 			yee[r2]=yetemp1;
-			*/
+			
+			/*
 			dis=0;
 			double distance11=Math.sqrt(Math.abs((xee[r1-1] - xss[r1])* (xee[r1-1] - xss[r1])+(yee[r1-1] - yss[r1])* (yee[r1-1] - yss[r1])));
 			double distance12=Math.sqrt(Math.abs((xee[r1] - xss[r1+1])* (xee[r1] - xss[r1+1])+(yee[r1] - yss[r1+1])* (yee[r1] - yss[r1+1])));
 			double distance13=Math.sqrt(Math.abs((xee[r2-1] - xss[r2])* (xee[r2-1] - xss[r2])+(yee[r2-1] - yss[r2])* (yee[r2-1] - yss[r2])));
 			double distance14=Math.sqrt(Math.abs((xee[r2] - xss[r2+1])* (xee[r2] - xss[r2+1])+(yee[r2] - yss[r2+1])* (yee[r2] - yss[r2+1])));
 			dis=distance11+distance12+distance13+distance14;
+			//System.out.println("1234123412341234 "+distance11+" "+distance12+" "+distance13+" "+distance14);
 			
-			double dis2=0;
 			
-			/*
-			for(int i=0;i<endnum-startnum-1;i++){
-				//double distance21=Math.sqrt(Math.abs((xee[i-1] - xss[i])* (xee[i-1] - xss[i])+(yee[i-1] - yss[i])* (yee[i-1] - yss[i])));
-				double distance22=Math.sqrt(Math.abs((xee[i]- xss[i+1])* (xee[i] - xss[i+1])+(yee[i] - yss[i+1])* (yee[i] - yss[i+1])));
-				double distance2=distance22;
-				//System.out.println("temp=========="+distance1);
-				dis2=dis2+distance2;
-			}
-			*/
+			
 			//System.out.println(dis+"  "+dis2);
+			
 			double distance21=Math.sqrt(Math.abs((xee[r1-1] - xss[r2])* (xee[r1-1] - xss[r2])+(yee[r1-1] - yss[r2])* (yee[r1-1] - yss[r2])));
 			double distance22=Math.sqrt(Math.abs((xee[r2] - xss[r1+1])* (xee[r2] - xss[r1+1])+(yee[r2] - yss[r1+1])* (yee[r2] - yss[r1+1])));
 			double distance23=Math.sqrt(Math.abs((xee[r2-1] - xss[r1])* (xee[r2-1] - xss[r1])+(yee[r2-1] - yss[r1])* (yee[r2-1] - yss[r1])));
 			double distance24=Math.sqrt(Math.abs((xee[r1] - xss[r2+1])* (xee[r1] - xss[r2+1])+(yee[r1] - yss[r2+1])* (yee[r1] - yss[r2+1])));
 			dis2=distance21+distance22+distance23+distance24;
+			*/
+			
+			
+			for(int i=0;i<endnum-startnum-1;i++){
+				double distancez2=Math.sqrt(Math.abs((xee[i]- xss[i+1])* (xee[i] - xss[i+1])+(yee[i] - yss[i+1])* (yee[i] - yss[i+1])));
+				dis2=dis2+distancez2;
+				
+			}
 			
 			
 			//int iff=1;
 			if(dis2<dis){
-			
+				olddis=dis;
+				dis=dis2;
 				//dis=dis2;
 				save++;
 				//System.out.println(blocks2[r1][0]);
 				//System.out.println(blocks2[r2][0]);
 				//System.out.println(xss[r1]);
 				//System.out.println(xss[r2]);
-				System.out.println("old dis: "+dis+" new dis: "+dis2);
-				
+				System.out.println("old dis: "+olddis+" new dis: "+dis2);
+				//System.out.println("1111111111111111 "+distance11+" "+distance12+" "+distance13+" "+distance14);
+				//System.out.println("2222222222222222 "+distance21+" "+distance22+" "+distance23+" "+distance24);
 				String[] temp=new String[blocks2[r1].length];
 				for(int i=0;i<blocks2[r1].length;i++){
 					temp[i]=blocks2[r1][i];
@@ -215,6 +235,7 @@ public class annealing {
 				//System.out.println(blocks2[r2][0]);
 				//System.out.println(xss[r1]);
 				//System.out.println(xss[r2]);
+				/*
 				xss[r1]=xstemp2;
 				yss[r1]=ystemp2;
 				xee[r1]=xetemp2;
@@ -223,19 +244,14 @@ public class annealing {
 				yss[r2]=ystemp1;
 				xee[r2]=xetemp1;
 				yee[r2]=yetemp1;
-				double distance31=Math.sqrt(Math.abs((xee[r1-1] - xss[r1])* (xee[r1-1] - xss[r1])+(yee[r1-1] - yss[r1])* (yee[r1-1] - yss[r1])));
-				double distance32=Math.sqrt(Math.abs((xee[r1] - xss[r1+1])* (xee[r1] - xss[r1+1])+(yee[r1] - yss[r1+1])* (yee[r1] - yss[r1+1])));
-				double distance33=Math.sqrt(Math.abs((xee[r2-1] - xss[r2])* (xee[r2-1] - xss[r2])+(yee[r2-1] - yss[r2])* (yee[r2-1] - yss[r2])));
-				double distance34=Math.sqrt(Math.abs((xee[r2] - xss[r2+1])* (xee[r2] - xss[r2+1])+(yee[r2] - yss[r2+1])* (yee[r2] - yss[r2+1])));
-				double dis3=distance31+distance33+distance32+distance34;
-				System.out.println("qeqwewqewq "+dis3);
+				*/
 				
 			}
 			
 			else{
-				System.out.println("no save: "+dis+"  "+dis2);
+				//System.out.println("no save: "+dis+"  "+dis2);
 				//System.out.println("qwe");
-				/*
+				
 				xss[r1]=xstemp1;
 				yss[r1]=ystemp1;
 				xee[r1]=xetemp1;
@@ -244,7 +260,7 @@ public class annealing {
 				yss[r2]=ystemp2;
 				xee[r2]=xetemp2;
 				yee[r2]=yetemp2;
-				*/
+				
 				
 			}
 			
@@ -257,7 +273,15 @@ public class annealing {
 			}
 		}
 		
+		for(int i=0;i<endnum-startnum-1;i++){
+			double distancez2=Math.sqrt(Math.abs((xee[i]- xss[i+1])* (xee[i] - xss[i+1])+(yee[i] - yss[i+1])* (yee[i] - yss[i+1])));
+			diszong2=diszong2+distancez2;
+			
+		}
+		
 		System.out.println("saveeeeeeee: "+save);
+		//System.out.println(diszong1+" "+distancezong1+" "+i);
+		System.out.println("zongzzzzzzz111 "+diszong1+" diszong2222222: "+dis);
 		//System.out.println("old dis: "+" new dis: "+dis);
 		//System.out.println("blocks::::::::::::::: "+blocks2.length);
 		System.out.println("linessssssssssssssssssssssssssss: "+lines+" lllllll "+llll);

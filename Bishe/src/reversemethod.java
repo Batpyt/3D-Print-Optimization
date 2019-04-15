@@ -6,12 +6,17 @@ public class reversemethod {
 		reversemethod dis=new reversemethod();
 		rev rr=new rev();
 		int booleansave=0;
+		int jishu=0;
+		
+		String path ="C:/Users/Tian/Desktop/suanfa2.gcode";
+		ReadFile rf = new ReadFile();
+		Node[][] nodes = rf.read(path);	
 		
 		for(int loop=0;loop<count;loop++){
 			//System.out.println("loop: "+loop);
-			String[] revblock=rr.reverseBlock(loop);
+			String[] revblock=rr.reverseBlock(loop,nodes);
 			if(revblock[0]=="0"){
-				//System.out.println(loop+" don't reverse");
+				System.out.println(loop+" don't reverse");
 				blocks2[loop]=new String[blocks[loop].length];
 				for(int i=0;i<blocks[loop].length;i++){
 					blocks2[loop][i]=blocks[loop][i];
@@ -27,7 +32,7 @@ public class reversemethod {
 							blocks2[0][i]=revblock[i];
 							//System.out.println(blocks2[0][i]);
 						}
-						
+						jishu++;
 					}
 					else if(booleansave==0){
 						//System.out.println("no save");
@@ -44,13 +49,11 @@ public class reversemethod {
 					if(booleansave==1){
 						System.out.println(loop+" save");
 						blocks2[loop]=new String[revblock.length];
-						
-						
 						for(int i=0;i<revblock.length;i++){
 							blocks2[loop][i]=revblock[i];
 							//System.out.println(blocks2[loop][i]);
 						}
-						
+						jishu++;
 						
 					}
 					else{
@@ -82,7 +85,7 @@ public class reversemethod {
 			}
 		}
 		*/
-		
+		System.out.println("saveeeeee: "+jishu);
 		return blocks2;
 		
 	}

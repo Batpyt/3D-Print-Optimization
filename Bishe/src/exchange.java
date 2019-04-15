@@ -6,6 +6,8 @@ public class exchange {
 		String[][] blocks2=new String[count][];
 		//int loop=0;
 		int booleanz=0;
+		int savenum=0;
+		
 		for(int i=0;i<count;i++){
 			blocks2[i]=new String [blocks[i].length];
 			for(int j=0;j<blocks[i].length;j++){
@@ -13,9 +15,10 @@ public class exchange {
 			}
 		}
 		
-		for(int loop=0;loop<1000;loop++){
+		for(int loop=0;loop<5000;loop++){
+			
 			Random r=new Random();
-			int r1=r.nextInt(count-2)+1;
+			int r1=r.nextInt(count-3)+1;
 			booleanz=0;
 			
 			
@@ -48,7 +51,8 @@ public class exchange {
 				//System.out.println(blocks[1][0]+"blocks");
 				
 				if(save==1){
-					System.out.println("1111111111   "+r1+"   "+blocks[r1][0]+"    "+loop);
+					savenum++;
+					//System.out.println("1111111111   "+r1+"   "+blocks[r1][0]+"    "+loop);
 					//System.out.println(xs[r1]+" "+xe[r2]);
 					String[] tempr1=new String[blocks2[r1].length];
 					for(int i=0;i<blocks2[r1].length;i++){
@@ -105,19 +109,43 @@ public class exchange {
 					
 				}
 				else{
-					System.out.println("2  "+loop);
+					//System.out.println("2  "+loop);
 					//loop++;
 					
 				}
 				
 			}
-			else{
-				//System.out.println("2");
-				//loop++;
+			
+			/*
+			if(loop==999){
+				System.out.println("with 1000 iterations: "+savenum);
+				
 			}
+			if(loop==1999){
+				System.out.println("with 2000 iterations: "+savenum);
+				
+			}
+			if(loop==2999){
+				System.out.println("with 3000 iterations: "+savenum);
+				
+			}
+			if(loop==3999){
+				System.out.println("with 4000 iterations: "+savenum);
+				
+			}
+			if(loop==4999){
+				System.out.println("with 5000 iterations: "+savenum);
+				
+			}
+			*/
+			
+			
+			
+			
+			
 		}
 			
-		//System.out.println(loop);
+		System.out.println("saveeeee: "+savenum);
 		return blocks2;
 	}
 	

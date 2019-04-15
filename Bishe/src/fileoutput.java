@@ -54,9 +54,9 @@ public class fileoutput {
 		//File file=new File("C:/Users/Tian/Desktop/originalandroid.gcode");
 		
 		//File file=new File("C:/Users/Tian/Desktop/suanfa1.gcode");
-		//File file=new File("C:/Users/Tian/Desktop/suanfa2.gcode");
+		File file=new File("C:/Users/Tian/Desktop/suanfa2.gcode");
 		//File file=new File("C:/Users/Tian/Desktop/reverse.gcode");
-		File file=new File("C:/Users/Tian/Desktop/annealing.gcode");
+		//File file=new File("C:/Users/Tian/Desktop/annealing.gcode");
 		
 		if (!file.exists()) {
 		    file.createNewFile();

@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 
 public class rev {
-	public static String[] reverseBlock(int number){
+	public static String[] reverseBlock(int number,Node[][] nodes){
+		/*
 		String path ="C:/Users/Tian/Desktop/Android.gcode";
 		ReadFile rf = new ReadFile();
 		Node[][] nodes = rf.read(path);	
-		
+		*/
 		
 		int i = 0;
 		int j = 0;

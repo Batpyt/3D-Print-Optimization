@@ -21,6 +21,8 @@ public class filereader {
 	 
 	 */
 	public static void readFile() throws IOException {
+		long starttime=System.currentTimeMillis();
+		
         String pathname = "C:/Users/Tian/Desktop/Android.gcode"; 
         int linesno=0;
         int no=0;
@@ -97,10 +99,6 @@ public class filereader {
         			
         			startline[startno]=moves[j-2];
         			
-        			//System.out.println("X start: "+xs[xsn1][startno]+" no: "+startno);
-            		//System.out.println("Y start: "+ys[ysn1][startno]+" no: "+startno);
-            		//xsn2++;
-            		//ysn2++;
         			startno++;
             		j++;
             		count++;
@@ -142,13 +140,7 @@ public class filereader {
         			}
         			
         			endline[endno]=moves[j-1];
-        			//System.out.println(moves[j-1]);
-        			//System.out.println(moves[j]);
-        			//System.out.println(moves[j+1]);
-        			//System.out.println("X end: "+xe[xen1][endno]+" no1: "+endno);
-            		//System.out.println("Y end: "+ye[yen1][endno]+" no1: "+endno);
-        			//xen2++;
-        			//yen2++;
+        			
             		endno++;
         			j++;
         		}
@@ -156,18 +148,8 @@ public class filereader {
         		else{
         			j++;
         		}
-        		/*
-        		else{
-        			xe[xen1][xen2]=Double.parseDouble((String) moves[j-1].subSequence(moves[j-1].indexOf("X")+1, moves[j-1].indexOf("Y")));
-        			//ye[yen1][yen2]=Double.parseDouble((String) moves[j-1].subSequence(moves[j-1].indexOf("Y")+1, moves[j-1].indexOf("E")));
-        			
-        			System.out.println("X end: "+xs[xen1][xen2]+" no2: "+xen2);
-            		System.out.println("Y end: "+ys[yen1][yen2]+" no2: "+yen2);
-        			xen2++;
-        			yen2++;
-        			j++;
-        		}
-        		*/
+        		
+        		
         	}
         	
         	else{
@@ -243,35 +225,62 @@ public class filereader {
         int start=0;
         
         //System.out.println(moves.length);
+        fileoutput out=new fileoutput();
         
         block bl=new block();
         String[][] blocks=bl.block(startline2, endline2, moves, count, moves.length);
         
         
-        
-        
-        //fileoutput out=new fileoutput();
-        //String newmoves=out.output(before, after, blocks, endend,count);
-        
-        
-        //exchangetwo extwo=new exchangetwo();
-        //String[][] exchangedtwoblocks=extwo.exchangetwo(moves, xs, ys, xe, ye, blocks, count);
-        
-        //exchange ex=new exchange();
-        //String[][] exchangedblocks=ex.exchange(moves, xs, ys, xe, ye, blocks, count);
-        
-        //reversemethod r=new reversemethod();
-        //String[][] revblocks=r.reversemethod(moves, xs, ys, xe, ye, exchangedblocks, count);
-        
         annealing ann=new annealing();
-        String[][] annblocks=ann.annealing(moves, xs, ys, xe, ye, blocks, count);
+        String[][] annealblocks=ann.annealing(moves, xs, ys, xe, ye, blocks, count);
         
-        fileoutput out=new fileoutput();
-        String newmoves=out.output(before, after, annblocks, endend,count);
+        
+        
+        XS xss=new XS();
+        double[] newxs=xss.xs(annealblocks, count);
+        YS yss=new YS();
+        double[] newys=yss.ys(annealblocks, count);
+        XE xee=new XE();
+        double[] newxe=xee.xe(annealblocks, count);
+        YE yee=new YE();
+        double[] newye=yee.ye(annealblocks, count);
+        
+        exchangefar exf=new exchangefar();
+        String[][] exfblocks=exf.exchangefar(moves, newxs, newys, newxe, newye, annealblocks, count);
+        
+        
+        double[] newxs1=xss.xs(exfblocks, count);
+        double[] newys1=yss.ys(exfblocks, count);
+        double[] newxe1=xee.xe(exfblocks, count);
+        double[] newye1=yee.ye(exfblocks, count);
+        
+        exchange ex=new exchange();
+        String[][] exchangedblocks=ex.exchange(moves,newxs1, newys1, newxe1, newye1, exfblocks, count);
+        
+        double[] newxs2=xss.xs(exchangedblocks, count);
+        double[] newys2=yss.ys(exchangedblocks, count);
+        double[] newxe2=xee.xe(exchangedblocks, count);
+        double[] newye2=yee.ye(exchangedblocks, count);
+        
+        
+        String oldmoves=out.output(before, after, exchangedblocks, endend,count);
+        
+        
+        reversemethod r=new reversemethod();
+        String[][] revblocks=r.reversemethod(moves, newxs2, newys2, newxe2, newye2,exchangedblocks, count);
+        
+        
+        
+        String newmoves=out.output(before, after, revblocks, endend,count);
+        
+        long endtime=System.currentTimeMillis();
+        long runtime=(endtime-starttime)/1000;
+        System.out.print("Run time: "+runtime+"s");
+        
         /*
         wang performance=new wang();
         double[] oldp=performance.Performance(pathname);
-        System.out.print("old performance");
+        System.out.println("old performance");
         System.out.println("Global distance: "+oldp[0]);
         System.out.println("Global time: "+oldp[1]);
         System.out.println("Idle distance: "+oldp[2]);
@@ -280,8 +289,9 @@ public class filereader {
         System.out.println("Printing time: "+oldp[5]);
         System.out.println("----------------------------------------------------------");
         
-        double[] newp=performance.Performance("C:/Users/Tian/Desktop/annealing.gcode");
-        System.out.print("new performance");
+        
+        double[] newp=performance.Performance("C:/Users/Tian/Desktop/suanfa2.gcode");
+        System.out.println("new performance");
         System.out.println("Global distance: "+newp[0]);
         System.out.println("Global time: "+newp[1]);
         System.out.println("Idle distance: "+newp[2]);

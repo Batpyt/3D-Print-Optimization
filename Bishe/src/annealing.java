@@ -106,6 +106,7 @@ public class annealing {
 		double diszong2=0;
 		double finaldis=0;
 		
+		
 		for(int i=0;i<endnum-startnum+1;i++){
 			//System.out.println("11111111111111111111111111 "+stn+" "+blocks[stn].length);
 			
@@ -161,14 +162,15 @@ public class annealing {
 		long fortime=0;
 		
 		int tstart=5000;
-		double tend=2;
+		double tend=0.01;
 		double t=tstart;
 		double cooling=0.99;
+		long annealtime=0;
 		
-		//while(t>tend){
-			
+		//bgm: while(t>tend){
+			long timestart=System.currentTimeMillis();
 			for(int loop=0;loop<15000;loop++){
-				//while(fortime<5){
+			//while(fortime<3){
 					
 					long forbegintime=System.currentTimeMillis()/1000;
 					int eachsave=0;
@@ -266,70 +268,16 @@ public class annealing {
 					
 					long forendtime=System.currentTimeMillis()/1000;
 					fortime=fortime+forendtime-forbegintime;
-					
-					if(loop==999){
-						System.out.println("with 1000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==1999){
-						System.out.println("with 2000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==2999){
-						System.out.println("with 3000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==3999){
-						System.out.println("with 4000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==4999){
-						System.out.println("with 5000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==5999){
-						System.out.println("with 6000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==6999){
-						System.out.println("with 7000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==7999){
-						System.out.println("with 8000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==8999){
-						System.out.println("with 9000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==9999){
-						System.out.println("with 10000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==10999){
-						System.out.println("with 11000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==119999){
-						System.out.println("with 12000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==129999){
-						System.out.println("with 130000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==13999){
-						System.out.println("with 14000 iterations: "+save);
-						eachsave=0;
-					}
-					if(loop==149999){
-						System.out.println("with 15000 iterations: "+save);
-						eachsave=0;
-					}
-					
-					
+				}
+			
+			long timeend=System.currentTimeMillis();
+			annealtime=annealtime+timeend-timestart;
+			//System.out.println(annealtime);
+			/*
+			if(annealtime>2000){
+				break bgm;
 			}
+			*/
 			
 		//}
 			

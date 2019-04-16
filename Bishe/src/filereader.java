@@ -23,7 +23,7 @@ public class filereader {
 	public static void readFile() throws IOException {
 		long starttime=System.currentTimeMillis();
 		
-        String pathname = "C:/Users/Tian/Desktop/Android.gcode"; 
+        String pathname = "C:/Users/Tian/Desktop/Moneybox.gcode"; 
         int linesno=0;
         int no=0;
         int length=9999;
@@ -98,7 +98,11 @@ public class filereader {
         			ys[startno]=Double.parseDouble((String) moves[j-2].subSequence(moves[j-2].indexOf("Y")+1, moves[j-2].indexOf("F")));
         			
         			startline[startno]=moves[j-2];
-        			
+        			if(startline[startno].contains("X139.149 Y107.040 F7800.000")){
+        				System.out.println("12342113412412424214213");
+        			}
+        			//int j2=j-2;
+        			//System.out.println(startline[startno]+" ssssss "+j2);
         			startno++;
             		j++;
             		count++;
@@ -229,12 +233,17 @@ public class filereader {
         
         block bl=new block();
         String[][] blocks=bl.block(startline2, endline2, moves, count, moves.length);
+        /*
+        for(int g=0;g<blocks[1360].length;g++){
+			System.out.println(blocks[1360][g]);
+		}
+        */
+        //annealing ann=new annealing();
+        //String[][] annealblocks=ann.annealing(moves, xs, ys, xe, ye, blocks, count);
         
         
-        annealing ann=new annealing();
-        String[][] annealblocks=ann.annealing(moves, xs, ys, xe, ye, blocks, count);
         
-        
+        /*
         
         XS xss=new XS();
         double[] newxs=xss.xs(annealblocks, count);
@@ -268,10 +277,10 @@ public class filereader {
         
         reversemethod r=new reversemethod();
         String[][] revblocks=r.reversemethod(moves, newxs2, newys2, newxe2, newye2,exchangedblocks, count);
+        */
         
         
-        
-        String newmoves=out.output(before, after, revblocks, endend,count);
+        String newmoves=out.output(before, after, blocks, endend,count);
         
         long endtime=System.currentTimeMillis();
         long runtime=(endtime-starttime)/1000;

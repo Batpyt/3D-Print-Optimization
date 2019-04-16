@@ -25,7 +25,9 @@ public class fileoutput {
 			n=0;
 			while(n<blocks[b].length){
 				newmoves[i]=blocks[b][n];
-				
+				if(b==1360){
+					//System.out.println(newmoves[i]+"   "+i);
+				}
 				//System.out.println(newmoves[i]);
 				i++;
 				n++;
@@ -33,28 +35,16 @@ public class fileoutput {
 			b++;
 		}
 		n=0;
-		//while(!after[n].contains("filament used")){
 		/*
-		while(i<endend){
-			newmoves[i]=after[n];
-			//System.out.println(i);
-			n++;
-			i++;
+		for(int g=0;g<blocks[1360].length;g++){
+			System.out.println(blocks[1360][g]);
 		}
 		*/
 		
-		//System.out.println(after[after.length]);
-		//newmoves[i]=after[after.length-1];
-		//System.out.println(newmoves[i]);
 		
-		//String filepath="C:/Users/Tian/Desktop/";
-		//File file=new File(filepath);
-		//String filename="new.gcode";
-		//File file=new File(filepath,filename);
-		//File file=new File("C:/Users/Tian/Desktop/originalandroid.gcode");
 		
-		//File file=new File("C:/Users/Tian/Desktop/suanfa1.gcode");
-		File file=new File("C:/Users/Tian/Desktop/suanfa2.gcode");
+		File file=new File("C:/Users/Tian/Desktop/suanfa1.gcode");
+		//File file=new File("C:/Users/Tian/Desktop/suanfa2.gcode");
 		//File file=new File("C:/Users/Tian/Desktop/reverse.gcode");
 		//File file=new File("C:/Users/Tian/Desktop/annealing.gcode");
 		
@@ -68,9 +58,13 @@ public class fileoutput {
 		//bw.write(newmoves[0]);
 		int xie=0;
 		while(xie<i){
+			if(xie==598902){
+				//System.out.println(" xiexiexiexie "+newmoves[xie]);
+			}
 			bw.write(newmoves[xie]);
 			bw.newLine();
 			xie++;
+			
 		}
 		//bw.write(newmoves[i]);
 		bw.close();

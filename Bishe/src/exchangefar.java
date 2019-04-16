@@ -176,8 +176,8 @@ public class exchangefar {
 		int jishu=0;
 		
 		long fortime=0;
-		for(int loop=0;loop<12000;loop++){
-		//while(fortime<5){
+		//for(int loop=0;loop<12000;loop++){
+		while(fortime<1	){
 			
 			long forbegintime=System.currentTimeMillis()/1000;
 			int eachsave=0;
@@ -281,7 +281,7 @@ public class exchangefar {
 			
 			
 			
-			
+			/*
 			if(jishu==999){
 				System.out.println("with 1000 iterations: "+save);
 				eachsave=0;
@@ -330,7 +330,7 @@ public class exchangefar {
 				System.out.println("with 12000 iterations: "+save);
 				eachsave=0;
 			}
-			
+			*/
 			
 		}
 		

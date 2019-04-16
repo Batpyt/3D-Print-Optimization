@@ -17,6 +17,9 @@ public class block {
 		
 		while(i<moveslength){{
 			//while(st<count){
+			if(moves[i].contains("Z50.100 F7800.000")){
+				//System.out.println(moves[i]+"   "+i);
+			}
 			
 				if(moves[i]==startline[j]){
 					//System.out.println("while "+st);
@@ -56,6 +59,45 @@ public class block {
 				for(m=start[b];m<=end[b]+2;m++){
 					
 					blocks[b][n]=moves[m];
+					n++;
+					//System.out.println(b+" "+n+" "+m);
+				}
+				b++;
+			}
+			else if(moves[start[b]-2].contains("Z")){
+				blocks[b][n]=moves[start[b]-2];
+				System.out.println(b+" isisisiissisisi "+blocks[b][n]);
+				n++;
+				for(m=start[b]-1;m<=end[b]+2;m++){
+					
+					blocks[b][n]=moves[m];
+					n++;
+					//System.out.println(b+" "+n+" "+m);
+				}
+				b++;
+			}
+			else if(moves[start[b]-3].contains("Z")){
+				blocks[b][n]=moves[start[b]-3];
+				//System.out.println(b+" isisisiissisisi "+blocks[b][n]);
+				//System.out.println("Z");
+				n++;
+				for(m=start[b]-2;m<=end[b]+2;m++){
+					
+					blocks[b][n]=moves[m];
+					n++;
+					//System.out.println(b+" "+n+" "+m);
+				}
+				b++;
+			}
+			else if(moves[start[b]-4].contains("Z")){
+				blocks[b][n]=moves[start[b]-4];
+				//System.out.println(b+" isisisiissisisi "+blocks[b][n]);
+				//System.out.println("Z");
+				n++;
+				for(m=start[b]-3;m<=end[b]+2;m++){
+					
+					blocks[b][n]=moves[m];
+					//System.out.println(blocks[b][n]);
 					n++;
 					//System.out.println(b+" "+n+" "+m);
 				}
@@ -101,66 +143,12 @@ public class block {
             }
         }
 		
-		b=0;
-		
-		
 		/*
-		while(b<5){
-			int pr=0;
-			System.out.println("block number: "+b);
-			while(pr<blocks2[b].length){
-				System.out.println(blocks2[b][pr]);
-				pr++;
-			}
-			b++;
-		}
-		
-		
-		/*
-		
-		while(b<count){
-			int pr=0;
-			System.out.println("block number: "+b);
-			while(pr<blocks2[b].length){
-				System.out.println(blocks2[b][pr]);
-				pr++;
-			}
-			b++;
-		}
-		
-		1
-		/*
-		String[][] blocks2 = null;
-		while(b<j){
-			while(n<notnull[b]){
-				n=0;
-				blocks2[b][n]=blocks[b][n];
-				n++;
-			}
-			
-			
-		}
-		
-		//System.out.println(blocks[0].length);
-		
-		
-		
-		
-		/*
-		while(b<j){
-			System.out.println(start[b]);
-			b++;
-		}
-		
-		
-		/*
-		for(String print:startline){
-			System.out.println(print);
+		for(int g=0;g<blocks2[1360].length;g++){
+			System.out.println(blocks2[1360][g]);
 		}
 		*/
-
-		//return blocks;
-
+		
 		return blocks2;
 	}
 }

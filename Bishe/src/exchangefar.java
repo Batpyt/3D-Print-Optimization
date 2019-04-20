@@ -111,6 +111,8 @@ public class exchangefar {
 		int lines=0;
 		double diszong1=0;
 		double diszong2=0;
+		int a1=0;
+		int a2=0;
 		
 		for(int i=0;i<endnum-startnum+1;i++){
 			//System.out.println("11111111111111111111111111 "+stn+" "+blocks[stn].length);
@@ -176,163 +178,240 @@ public class exchangefar {
 		int jishu=0;
 		
 		long fortime=0;
-		//for(int loop=0;loop<12000;loop++){
-		while(fortime<1	){
-			
+		
+		for(int loop=0;loop<15000;loop++){
+		//while(fortime<1	){
 			long forbegintime=System.currentTimeMillis()/1000;
-			int eachsave=0;
-			double dis2=0;
-			double olddis=0;
 			
-			
-			int r1=r.nextInt(endnum-startnum-2)+1;
-			int r2=r.nextInt(endnum-startnum-2)+1;
-			
-			while(r1==r2){
-				r1=r.nextInt(endnum-startnum-2)+1;
-				r2=r.nextInt(endnum-startnum-2)+1;
+			int num = r.nextInt(2);
+			if(num==0){
+				a1++;
+				int r1=r.nextInt(endnum-startnum-2)+1;
+				int r2=r1+1;
+				double dis2=0;
 				
-			}
-			//System.out.println("r1: "+r1+" r2 "+r2);
-			
-			
-			double xstemp1=xss[r1];
-			double xetemp1=xee[r1]; 
-			double ystemp1=yss[r1];
-			double yetemp1=yee[r1];
-			double xstemp2=xss[r2];
-			double xetemp2=xee[r2];
-			double ystemp2=yss[r2];
-			double yetemp2=yee[r2];
-			
-			
-			xss[r1]=xstemp2;
-			yss[r1]=ystemp2;
-			xee[r1]=xetemp2;
-			yee[r1]=yetemp2;
-			xss[r2]=xstemp1;
-			yss[r2]=ystemp1;
-			xee[r2]=xetemp1;
-			yee[r2]=yetemp1;
-			
-			
-			for(int i=0;i<endnum-startnum-1;i++){
-				double distancez2=Math.sqrt(Math.abs((xee[i]- xss[i+1])* (xee[i] - xss[i+1])+(yee[i] - yss[i+1])* (yee[i] - yss[i+1])));
-				dis2=dis2+distancez2;
+				double xstemp1=xss[r1];
+				double xetemp1=xee[r1]; 
+				double ystemp1=yss[r1];
+				double yetemp1=yee[r1];
+				double xstemp2=xss[r2];
+				double xetemp2=xee[r2];
+				double ystemp2=yss[r2];
+				double yetemp2=yee[r2];
 				
-			}
-			
-			
-			//int iff=1;
-			if(dis2<dis){
-				eachsave++;
-				olddis=dis;
-				dis=dis2;
-				//dis=dis2;
-				save++;
-				//System.out.println(blocks2[r1][0]);
-				//System.out.println(blocks2[r2][0]);
-				//System.out.println(xss[r1]);
-				//System.out.println(xss[r2]);
-				//System.out.println("old dis: "+olddis+" new dis: "+dis2);
-				//System.out.println("1111111111111111 "+distance11+" "+distance12+" "+distance13+" "+distance14);
-				//System.out.println("2222222222222222 "+distance21+" "+distance22+" "+distance23+" "+distance24);
-				String[] temp=new String[blocks2[r1].length];
-				for(int i=0;i<blocks2[r1].length;i++){
-					temp[i]=blocks2[r1][i];
+				
+				xss[r1]=xstemp2;
+				yss[r1]=ystemp2;
+				xee[r1]=xetemp2;
+				yee[r1]=yetemp2;
+				xss[r2]=xstemp1;
+				yss[r2]=ystemp1;
+				xee[r2]=xetemp1;
+				yee[r2]=yetemp1;
+				
+				for(int i=0;i<endnum-startnum-1;i++){
+					double distancez2=Math.sqrt(Math.abs((xee[i]- xss[i+1])* (xee[i] - xss[i+1])+(yee[i] - yss[i+1])* (yee[i] - yss[i+1])));
+					dis2=dis2+distancez2;
+					
 				}
 				
-				blocks2[r1]=new String[blocks2[r2].length];
-				for(int j=0;j<blocks2[r2].length;j++){
-					blocks2[r1][j]=blocks2[r2][j];
-					//System.out.println(blocks2[r1][j]);
+				if(dis2<dis){
+					String[] tempr1=new String[blocks2[r1].length];
+					for(int i=0;i<blocks2[r1].length;i++){
+						tempr1[i]=blocks2[r1][i];
+					}
+					String[] tempr2=new String[blocks2[r2].length];
+					for(int i=0;i<blocks2[r2].length;i++){
+						tempr2[i]=blocks2[r2][i];
+					}
+					blocks2[r1]=new String[tempr2.length];
+					for(int j=0;j<tempr2.length;j++){
+						blocks2[r1][j]=tempr2[j];
+						//System.out.println(blocks2[r1][j]);
+					}
+					blocks2[r2]=new String[tempr1.length];
+					for(int j=0;j<tempr1.length;j++){
+						blocks2[r2][j]=tempr1[j];
+						//System.out.println(blocks2[r2][j]);
+					}
 				}
 				
-				blocks2[r2]=new String[temp.length];
-				for(int j=0;j<temp.length;j++){
-					blocks2[r2][j]=temp[j];
-					//System.out.println(blocks2[r2][j]);
+				else{
+					xss[r1]=xstemp1;
+					yss[r1]=ystemp1;
+					xee[r1]=xetemp1;
+					yee[r1]=yetemp1;
+					xss[r2]=xstemp2;
+					yss[r2]=ystemp2;
+					xee[r2]=xetemp2;
+					yee[r2]=yetemp2;
 				}
 				
-				jishu++;
 				
-				
-			}
-			
-			else{
-				
-				//System.out.println("no save: "+dis+"  "+dis2);
-				//System.out.println("qwe");
-				jishu++;
-				xss[r1]=xstemp1;
-				yss[r1]=ystemp1;
-				xee[r1]=xetemp1;
-				yee[r1]=yetemp1;
-				xss[r2]=xstemp2;
-				yss[r2]=ystemp2;
-				xee[r2]=xetemp2;
-				yee[r2]=yetemp2;
 				
 				
 			}
 			
-			long forendtime=System.currentTimeMillis()/1000;
-			fortime=fortime+forendtime-forbegintime;
+			if(num==1){
+				a2++;
+				int eachsave=0;
+				double dis2=0;
+				double olddis=0;
+				
+				
+				int r1=r.nextInt(endnum-startnum-2)+1;
+				int r2=r.nextInt(endnum-startnum-2)+1;
+				
+				while(r1==r2){
+					r1=r.nextInt(endnum-startnum-2)+1;
+					r2=r.nextInt(endnum-startnum-2)+1;
+					
+				}
+				//System.out.println("r1: "+r1+" r2 "+r2);
+				
+				
+				double xstemp1=xss[r1];
+				double xetemp1=xee[r1]; 
+				double ystemp1=yss[r1];
+				double yetemp1=yee[r1];
+				double xstemp2=xss[r2];
+				double xetemp2=xee[r2];
+				double ystemp2=yss[r2];
+				double yetemp2=yee[r2];
+				
+				
+				xss[r1]=xstemp2;
+				yss[r1]=ystemp2;
+				xee[r1]=xetemp2;
+				yee[r1]=yetemp2;
+				xss[r2]=xstemp1;
+				yss[r2]=ystemp1;
+				xee[r2]=xetemp1;
+				yee[r2]=yetemp1;
+				
+				
+				for(int i=0;i<endnum-startnum-1;i++){
+					double distancez2=Math.sqrt(Math.abs((xee[i]- xss[i+1])* (xee[i] - xss[i+1])+(yee[i] - yss[i+1])* (yee[i] - yss[i+1])));
+					dis2=dis2+distancez2;
+					
+				}
+				
+				
+				//int iff=1;
+				if(dis2<dis){
+					eachsave++;
+					olddis=dis;
+					dis=dis2;
+					//dis=dis2;
+					save++;
+					//System.out.println(blocks2[r1][0]);
+					//System.out.println(blocks2[r2][0]);
+					//System.out.println(xss[r1]);
+					//System.out.println(xss[r2]);
+					//System.out.println("old dis: "+olddis+" new dis: "+dis2);
+					//System.out.println("1111111111111111 "+distance11+" "+distance12+" "+distance13+" "+distance14);
+					//System.out.println("2222222222222222 "+distance21+" "+distance22+" "+distance23+" "+distance24);
+					String[] temp=new String[blocks2[r1].length];
+					for(int i=0;i<blocks2[r1].length;i++){
+						temp[i]=blocks2[r1][i];
+					}
+					
+					blocks2[r1]=new String[blocks2[r2].length];
+					for(int j=0;j<blocks2[r2].length;j++){
+						blocks2[r1][j]=blocks2[r2][j];
+						//System.out.println(blocks2[r1][j]);
+					}
+					
+					blocks2[r2]=new String[temp.length];
+					for(int j=0;j<temp.length;j++){
+						blocks2[r2][j]=temp[j];
+						//System.out.println(blocks2[r2][j]);
+					}
+					
+					jishu++;
+					
+					
+				}
+				
+				else{
+					
+					//System.out.println("no save: "+dis+"  "+dis2);
+					//System.out.println("qwe");
+					jishu++;
+					xss[r1]=xstemp1;
+					yss[r1]=ystemp1;
+					xee[r1]=xetemp1;
+					yee[r1]=yetemp1;
+					xss[r2]=xstemp2;
+					yss[r2]=ystemp2;
+					xee[r2]=xetemp2;
+					yee[r2]=yetemp2;
+					
+					
+				}
+				
+				long forendtime=System.currentTimeMillis()/1000;
+				fortime=fortime+forendtime-forbegintime;
+				
+				
+				
+				/*
+				if(jishu==999){
+					System.out.println("with 1000 iterations: "+save);
+					eachsave=0;
+				}
+				if(loop==1999){
+					System.out.println("with 2000 iterations: "+save);
+					eachsave=0;
+				}
+				if(loop==2999){
+					System.out.println("with 3000 iterations: "+save);
+					eachsave=0;
+				}
+				if(loop==3999){
+					System.out.println("with 4000 iterations: "+save);
+					eachsave=0;
+				}
+				if(loop==4999){
+					System.out.println("with 5000 iterations: "+save);
+					eachsave=0;
+				}
+				if(loop==5999){
+					System.out.println("with 6000 iterations: "+save);
+					eachsave=0;
+				}
+				if(loop==6999){
+					System.out.println("with 7000 iterations: "+save);
+					eachsave=0;
+				}
+				if(loop==7999){
+					System.out.println("with 8000 iterations: "+save);
+					eachsave=0;
+				}
+				if(loop==8999){
+					System.out.println("with 9000 iterations: "+save);
+					eachsave=0;
+				}
+				if(loop==9999){
+					System.out.println("with 10000 iterations: "+save);
+					eachsave=0;
+				}
+				if(loop==10999){
+					System.out.println("with 11000 iterations: "+save);
+					eachsave=0;
+				}
+				if(loop==119999){
+					System.out.println("with 12000 iterations: "+save);
+					eachsave=0;
+				}
+				*/
+				
+			}
+			}
 			
 			
 			
-			/*
-			if(jishu==999){
-				System.out.println("with 1000 iterations: "+save);
-				eachsave=0;
-			}
-			if(loop==1999){
-				System.out.println("with 2000 iterations: "+save);
-				eachsave=0;
-			}
-			if(loop==2999){
-				System.out.println("with 3000 iterations: "+save);
-				eachsave=0;
-			}
-			if(loop==3999){
-				System.out.println("with 4000 iterations: "+save);
-				eachsave=0;
-			}
-			if(loop==4999){
-				System.out.println("with 5000 iterations: "+save);
-				eachsave=0;
-			}
-			if(loop==5999){
-				System.out.println("with 6000 iterations: "+save);
-				eachsave=0;
-			}
-			if(loop==6999){
-				System.out.println("with 7000 iterations: "+save);
-				eachsave=0;
-			}
-			if(loop==7999){
-				System.out.println("with 8000 iterations: "+save);
-				eachsave=0;
-			}
-			if(loop==8999){
-				System.out.println("with 9000 iterations: "+save);
-				eachsave=0;
-			}
-			if(loop==9999){
-				System.out.println("with 10000 iterations: "+save);
-				eachsave=0;
-			}
-			if(loop==10999){
-				System.out.println("with 11000 iterations: "+save);
-				eachsave=0;
-			}
-			if(loop==119999){
-				System.out.println("with 12000 iterations: "+save);
-				eachsave=0;
-			}
-			*/
 			
-		}
 		
 		long endtime=System.currentTimeMillis()/1000;
 		long time=endtime-begintime;
@@ -351,6 +430,7 @@ public class exchangefar {
 		
 		
 		System.out.println("saveeeeeeee: "+save);
+		System.out.println("aaaaaaaaaaaaaaaaaaaa1111111111111 "+a1+" aaaaaaaaaaaaaaaa222222222222222222 "+a2);
 		//System.out.println(diszong1+" "+distancezong1+" "+i);
 		System.out.println("zongzzzzzzz111 "+diszong1+" diszong2222222: "+dis);
 		System.out.println("timememememeeem: "+time);

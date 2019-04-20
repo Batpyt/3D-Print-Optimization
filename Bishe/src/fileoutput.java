@@ -11,7 +11,7 @@ public class fileoutput {
 		int i=0;
 		int b=0;
 		int n=0;
-		System.out.println(endend);
+		//System.out.println(endend);
 		
 		while(i<before.length){
 			newmoves[i]=before[i];
@@ -46,7 +46,7 @@ public class fileoutput {
 		File file=new File("C:/Users/Tian/Desktop/suanfa1.gcode");
 		//File file=new File("C:/Users/Tian/Desktop/suanfa2.gcode");
 		//File file=new File("C:/Users/Tian/Desktop/reverse.gcode");
-		//File file=new File("C:/Users/Tian/Desktop/annealing.gcode");
+		//File file=new File("C:/Users/Tian/Desktop/original.gcode");
 		
 		if (!file.exists()) {
 		    file.createNewFile();

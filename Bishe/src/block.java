@@ -17,9 +17,7 @@ public class block {
 		
 		while(i<moveslength){{
 			//while(st<count){
-			if(moves[i].contains("Z50.100 F7800.000")){
-				//System.out.println(moves[i]+"   "+i);
-			}
+			
 			
 				if(moves[i]==startline[j]){
 					//System.out.println("while "+st);
@@ -66,7 +64,7 @@ public class block {
 			}
 			else if(moves[start[b]-2].contains("Z")){
 				blocks[b][n]=moves[start[b]-2];
-				System.out.println(b+" isisisiissisisi "+blocks[b][n]);
+				//System.out.println(b+" isisisiissisisi "+blocks[b][n]);
 				n++;
 				for(m=start[b]-1;m<=end[b]+2;m++){
 					

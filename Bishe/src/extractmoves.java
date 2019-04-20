@@ -5,15 +5,21 @@ public class extractmoves {
 		int t=0;
 		int m=0;
 		int length=linesno;
-		/*
+		int howmany=0;
+		
 		for(int i=0;i<linesno;i++){
-			if(!s[i].contains("E")&&s[i].contains("F")&&!s[i+1].contains("E")&&s[i+1].contains("F")){
+			if(!s[i].contains("E")&&s[i].contains("F")&&!s[i+1].contains("E")&&s[i+1].contains("F")&&!s[i].contains("Z")){
 				for(int j=i+2;j<linesno;j++){
+					s[i+1]=s[j];
 					
 				}
+				howmany++;
+				//System.out.println(s[i]);
+				i--;
 			}
 		}
-		*/
+		
+		//System.out.println(howmany);
 		
 		while(t<linesno){      //get how many moves are in the Gcode fle
         	if((s[t].contains("G92")||s[t].contains("G1"))&&!s[t].contains("Z5 F5000")){
@@ -36,9 +42,7 @@ public class extractmoves {
         		m++;      //以后用要记得减1
         		
         	}
-        	if(s[t].contains("Z50.100 F7800.000")){
-				System.out.println(move[m-1]+" mmmmmmm  "+t);
-			}
+        	
         	t++;
         }
         move[m]="end";

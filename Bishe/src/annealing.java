@@ -19,7 +19,9 @@ public class annealing {
 				nm[n]=i;
 				n++;
 			}
-		}//there are 23 layers
+		}
+		System.out.println("total "+layer+" layers");
+		
 		int[] startnum=new int[layer];
 		int[] endnum=new int [layer];
 		for(int i=0;i<startnum.length;i++){
@@ -42,10 +44,14 @@ public class annealing {
 		annealing annl=new annealing();
 		
 		int blocklength=0;
+		int runnum=0;
 		for(int i=0;i<layer;i++){
 			n=0;
 			int startn=startnum[i];
-			if(endnum[i]-startnum[i]>5){
+			
+			
+			if(endnum[i]-startnum[i]>3){
+				runnum++;
 				String[][] blocks3=annl.layer(startnum[i], endnum[i], blocks, count, xs, ys, xe, ye);
 				int lines2=0;
 				for(int k=startnum[i];k<endnum[i]+1;k++){
@@ -78,6 +84,7 @@ public class annealing {
 			
 		}
 		
+		System.out.println("the number fo layers been optmized: "+runnum);
 		return blocks2;
 		
 	}
@@ -96,6 +103,8 @@ public class annealing {
 		
 		exchange d=new exchange();
 		Random r=new Random();
+		System.out.println("   ");
+		System.out.println("------------------------------------------------------------------------------------------------------");
 		System.out.println("starttttttt: "+startnum+" enddddddd: "+endnum);
 		String[][] blocks2=new String[endnum-startnum+1][];
 		double dis=0;
@@ -105,7 +114,15 @@ public class annealing {
 		double diszong1=0;
 		double diszong2=0;
 		double finaldis=0;
+		int a1=0;
+		int a2=0;
 		
+		/*
+		String path ="C:/Users/Tian/Desktop/Android.gcode";
+		ReadFile rf = new ReadFile();
+		Node[][] nodes = rf.read(path);	
+		rev rev=new rev();
+		*/
 		
 		for(int i=0;i<endnum-startnum+1;i++){
 			//System.out.println("11111111111111111111111111 "+stn+" "+blocks[stn].length);
@@ -169,106 +186,219 @@ public class annealing {
 		
 		//bgm: while(t>tend){
 			long timestart=System.currentTimeMillis();
-			for(int loop=0;loop<15000;loop++){
-			//while(fortime<3){
-					
+			for(int loop=0;loop<30000;loop++){
+			//while(fortime<2){
 					long forbegintime=System.currentTimeMillis()/1000;
 					int eachsave=0;
 					double dis2=0;
 					double olddis=0;
 					
-					
-					int r1=r.nextInt(endnum-startnum-2)+1;
-					int r2=r.nextInt(endnum-startnum-2)+1;
-					
-					while(r1==r2){
-						r1=r.nextInt(endnum-startnum-2)+1;
-						r2=r.nextInt(endnum-startnum-2)+1;
+					int num = r.nextInt(2);
+					if(num==0){
+						a1++;
+						int r1=r.nextInt(endnum-startnum-2)+1;
+						int r2=r1+1;
+						dis2=0;
 						
-					}
-					//System.out.println("r1: "+r1+" r2 "+r2);
-					
-					
-					double xstemp1=xss[r1];
-					double xetemp1=xee[r1]; 
-					double ystemp1=yss[r1];
-					double yetemp1=yee[r1];
-					double xstemp2=xss[r2];
-					double xetemp2=xee[r2];
-					double ystemp2=yss[r2];
-					double yetemp2=yee[r2];
-					
-					
-					xss[r1]=xstemp2;
-					yss[r1]=ystemp2;
-					xee[r1]=xetemp2;
-					yee[r1]=yetemp2;
-					xss[r2]=xstemp1;
-					yss[r2]=ystemp1;
-					xee[r2]=xetemp1;
-					yee[r2]=yetemp1;
-					
-					
-					for(int i=0;i<endnum-startnum-1;i++){
-						double distancez2=Math.sqrt(Math.abs((xee[i]- xss[i+1])* (xee[i] - xss[i+1])+(yee[i] - yss[i+1])* (yee[i] - yss[i+1])));
-						dis2=dis2+distancez2;
+						double xstemp1=xss[r1];
+						double xetemp1=xee[r1]; 
+						double ystemp1=yss[r1];
+						double yetemp1=yee[r1];
+						double xstemp2=xss[r2];
+						double xetemp2=xee[r2];
+						double ystemp2=yss[r2];
+						double yetemp2=yee[r2];
 						
-					}
-					
-					double disgap=dis2-dis;
-					double tt=10/10000;
-					double rr=r.nextDouble();
-					
-					if(disgap<0||Math.exp(-disgap/t)>r.nextDouble()){
-					//if(disgap<20-tt*loop){
-						eachsave++;
-						olddis=dis;
-						dis=dis2;
-						save++;
-						String[] temp=new String[blocks2[r1].length];
-						for(int i=0;i<blocks2[r1].length;i++){
-							temp[i]=blocks2[r1][i];
+						
+						xss[r1]=xstemp2;
+						yss[r1]=ystemp2;
+						xee[r1]=xetemp2;
+						yee[r1]=yetemp2;
+						xss[r2]=xstemp1;
+						yss[r2]=ystemp1;
+						xee[r2]=xetemp1;
+						yee[r2]=yetemp1;
+						
+						for(int i=0;i<endnum-startnum-1;i++){
+							double distancez2=Math.sqrt(Math.abs((xee[i]- xss[i+1])* (xee[i] - xss[i+1])+(yee[i] - yss[i+1])* (yee[i] - yss[i+1])));
+							dis2=dis2+distancez2;
+							
 						}
 						
-						blocks2[r1]=new String[blocks2[r2].length];
-						for(int j=0;j<blocks2[r2].length;j++){
-							blocks2[r1][j]=blocks2[r2][j];
-							//System.out.println(blocks2[r1][j]);
+						double disgap=dis2-dis;
+						
+						if(disgap<0||Math.exp(-disgap/t)>r.nextDouble()){
+							String[] tempr1=new String[blocks2[r1].length];
+							for(int i=0;i<blocks2[r1].length;i++){
+								tempr1[i]=blocks2[r1][i];
+							}
+							String[] tempr2=new String[blocks2[r2].length];
+							for(int i=0;i<blocks2[r2].length;i++){
+								tempr2[i]=blocks2[r2][i];
+							}
+							blocks2[r1]=new String[tempr2.length];
+							for(int j=0;j<tempr2.length;j++){
+								blocks2[r1][j]=tempr2[j];
+								//System.out.println(blocks2[r1][j]);
+							}
+							blocks2[r2]=new String[tempr1.length];
+							for(int j=0;j<tempr1.length;j++){
+								blocks2[r2][j]=tempr1[j];
+								//System.out.println(blocks2[r2][j]);
+							}
 						}
 						
-						blocks2[r2]=new String[temp.length];
-						for(int j=0;j<temp.length;j++){
-							blocks2[r2][j]=temp[j];
-							//System.out.println(blocks2[r2][j]);
+						else{
+							xss[r1]=xstemp1;
+							yss[r1]=ystemp1;
+							xee[r1]=xetemp1;
+							yee[r1]=yetemp1;
+							xss[r2]=xstemp2;
+							yss[r2]=ystemp2;
+							xee[r2]=xetemp2;
+							yee[r2]=yetemp2;
 						}
 						
-						jishu++;
-						t=t*cooling;
-						//System.out.println(t);
-					}
-					
-					else{
 						
-						//System.out.println("no save: "+dis+"  "+dis2);
-						//System.out.println("qwe");
-						jishu++;
-						xss[r1]=xstemp1;
-						yss[r1]=ystemp1;
-						xee[r1]=xetemp1;
-						yee[r1]=yetemp1;
-						xss[r2]=xstemp2;
-						yss[r2]=ystemp2;
-						xee[r2]=xetemp2;
-						yee[r2]=yetemp2;
 						
 						
 					}
 					
 					
+					if(num==1){
+						a2++;
+						
+						int r1=r.nextInt(endnum-startnum-2)+1;
+						int r2=r.nextInt(endnum-startnum-2)+1;
+						
+						while(r1==r2){
+							r1=r.nextInt(endnum-startnum-2)+1;
+							r2=r.nextInt(endnum-startnum-2)+1;
+							
+						}
+						//System.out.println("r1: "+r1+" r2 "+r2);
+						
+						
+						double xstemp1=xss[r1];
+						double xetemp1=xee[r1]; 
+						double ystemp1=yss[r1];
+						double yetemp1=yee[r1];
+						double xstemp2=xss[r2];
+						double xetemp2=xee[r2];
+						double ystemp2=yss[r2];
+						double yetemp2=yee[r2];
+						
+						
+						xss[r1]=xstemp2;
+						yss[r1]=ystemp2;
+						xee[r1]=xetemp2;
+						yee[r1]=yetemp2;
+						xss[r2]=xstemp1;
+						yss[r2]=ystemp1;
+						xee[r2]=xetemp1;
+						yee[r2]=yetemp1;
+						
+						
+						for(int i=0;i<endnum-startnum-1;i++){
+							double distancez2=Math.sqrt(Math.abs((xee[i]- xss[i+1])* (xee[i] - xss[i+1])+(yee[i] - yss[i+1])* (yee[i] - yss[i+1])));
+							dis2=dis2+distancez2;
+							
+						}
+						
+						double disgap=dis2-dis;
+						double tt=10/10000;
+						double rr=r.nextDouble();
+						
+						if(disgap<0||Math.exp(-disgap/t)>r.nextDouble()){
+						
+							eachsave++;
+							olddis=dis;
+							dis=dis2;
+							save++;
+							String[] temp=new String[blocks2[r1].length];
+							for(int i=0;i<blocks2[r1].length;i++){
+								temp[i]=blocks2[r1][i];
+							}
+							
+							blocks2[r1]=new String[blocks2[r2].length];
+							for(int j=0;j<blocks2[r2].length;j++){
+								blocks2[r1][j]=blocks2[r2][j];
+								//System.out.println(blocks2[r1][j]);
+							}
+							
+							blocks2[r2]=new String[temp.length];
+							for(int j=0;j<temp.length;j++){
+								blocks2[r2][j]=temp[j];
+								//System.out.println(blocks2[r2][j]);
+							}
+							
+							jishu++;
+							t=t*cooling;
+							//System.out.println(t);
+							
+							////////////////////////////////////////////////////reverse////////////////////////////////////////////////
+							/*
+							double beforedis=Math.sqrt(Math.abs((xee[r2-1] - xs[r2])* (xee[r2-1] - xs[r2])+(xe[r2]-xs[r2+1])* (xe[r2]-xs[r2+1])));
+							double revdis=Math.sqrt(Math.abs((xee[r2-1] - xe[r2])* (xee[r2-1] - xe[r2])+(xs[r2]-xs[r2+1])* (xs[r2]-xs[r2+1])));
+							stn=startnum;
+							int revnum=0;
+							
+							if(revdis<beforedis){
+								System.out.println("revrevrevrevrevrevrevrevrevrevrevrevrevrevrevrev");
+								for(int i=stn;i<endnum;i++){
+									if(blocks[i].length==blocks2[r2].length&&blocks[i][0]==blocks2[r2][0]&&blocks[i][1]==blocks2[r2][1]&&blocks[i][2]==blocks2[r2][2]
+											&&blocks[i][3]==blocks2[r2][3]&&blocks[i][4]==blocks2[r2][4]){
+												
+												System.out.println(blocks[i].length+" 123123 "+blocks2[r2].length);
+												revnum=i;
+												System.out.println("revnum "+revnum);
+												String[] revblock=rev.reverseBlock(revnum,nodes);
+												System.out.println(blocks[revnum].length+" "+blocks2[r2].length);
+												if(revblock[0]!="0"){
+													for(int j=0;j<blocks2[r2].length;j++){
+														blocks2[r2][j]=revblock[j];
+													}
+												}
+											}
+									
+									else{
+										//System.out.println("not match");
+									}
+								}
+								
+							}
+							*/
+							
+							
+						}
+						
+						else{
+							
+							//System.out.println("no save: "+dis+"  "+dis2);
+							//System.out.println("qwe");
+							jishu++;
+							xss[r1]=xstemp1;
+							yss[r1]=ystemp1;
+							xee[r1]=xetemp1;
+							yee[r1]=yetemp1;
+							xss[r2]=xstemp2;
+							yss[r2]=ystemp2;
+							xee[r2]=xetemp2;
+							yee[r2]=yetemp2;
+							
+							
+						}
+						
+						
+						
+						long forendtime=System.currentTimeMillis()/1000;
+						fortime=fortime+forendtime-forbegintime;
+					}
+			}
+						
 					
-					long forendtime=System.currentTimeMillis()/1000;
-					fortime=fortime+forendtime-forbegintime;
-				}
+					
+					
 			
 			long timeend=System.currentTimeMillis();
 			annealtime=annealtime+timeend-timestart;
@@ -301,9 +431,10 @@ public class annealing {
 		}
 		
 		
-		System.out.println("saveeeeeeee: "+save);
+		//System.out.println("saveeeeeeee: "+save);
 		//System.out.println(diszong1+" "+distancezong1+" "+i);
 		System.out.println("zongzzzzzzz111 "+diszong1+" diszong2222222: "+dis+" "+t);
+		//System.out.println("aaaaaaaaaaaaaaaaaaaa1111111111111 "+a1+" aaaaaaaaaaaaaaaa222222222222222222 "+a2);
 		//System.out.println("timememememeeem: "+time);
 		//System.out.println("old dis: "+" new dis: "+dis);
 		//System.out.println("blocks::::::::::::::: "+blocks2.length);

@@ -6,29 +6,35 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class fileoutput {
-	public String output(String[] before,String[] after,String[][] blocks,int endend,int count) throws IOException{
+	public String output(String[][] blocks,int count,String which) throws IOException{
 		String[] newmoves= new String[999999];
 		int i=0;
 		int b=0;
 		int n=0;
-		//System.out.println(endend);
+		String qqq="0";
 		
-		while(i<before.length){
-			newmoves[i]=before[i];
-			//System.out.println(newmoves[i]);
-			i++;
-		}
+		newmoves[0]="G21";
+		newmoves[1]="M107";
+		newmoves[2]="M104 S205";
+		newmoves[3]="G28";
+		newmoves[4]="G1 Z5 F5000";
+		newmoves[5]="M109 S205";
+		newmoves[6]="G90";
+		newmoves[7]="G92 E0";
+		newmoves[8]="M82";
+		newmoves[9]="G1 F1800.000 E-1.00000";
+		newmoves[10]="G92 E0";
+		newmoves[11]="  ";
 		
 		
+		
+		
+		i=12;
 		while(b<count){
 			//System.out.println("///////////////////////////////////////////////"+b);
 			n=0;
 			while(n<blocks[b].length){
 				newmoves[i]=blocks[b][n];
-				if(b==1360){
-					//System.out.println(newmoves[i]+"   "+i);
-				}
-				//System.out.println(newmoves[i]);
 				i++;
 				n++;
 			}
@@ -40,13 +46,21 @@ public class fileoutput {
 			System.out.println(blocks[1360][g]);
 		}
 		*/
+		File file = null;
+		
+		if(which=="annealing"){
+			file=new File("C:/Users/Tian/Desktop/suanfa1.gcode");
+			qqq="the result of simulated annealing is stored in suanfa1.gcode";
+		}
+		if(which=="hillclimbing"){
+			file=new File("C:/Users/Tian/Desktop/suanfa2.gcode");
+			qqq="the result of hill climbing is stored in suanfa2.gcode";
+		}
 		
 		
-		
-		File file=new File("C:/Users/Tian/Desktop/suanfa1.gcode");
 		//File file=new File("C:/Users/Tian/Desktop/suanfa2.gcode");
 		//File file=new File("C:/Users/Tian/Desktop/reverse.gcode");
-		//File file=new File("C:/Users/Tian/Desktop/original.gcode");
+		//File file=new File("C:/Users/Tian/Desktop/originalgcode");
 		
 		if (!file.exists()) {
 		    file.createNewFile();
@@ -84,7 +98,7 @@ public class fileoutput {
 		
 		
 		
-		String qqq="0";
+		
 		return qqq;
 		
 	}

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class rev {
-	public static String[] reverseBlock(int number,Node[][] nodes){
+	public static String[] reverseBlock(Node[] nodes){
 		/*
 		String path ="C:/Users/Tian/Desktop/Android.gcode";
 		ReadFile rf = new ReadFile();
@@ -14,7 +14,7 @@ public class rev {
 		int lines = 0;
 		int num_sb = 0;
 		
-		while(nodes[number][i].getType() != null)
+		while(nodes[i].getType() != null)
 			i++;
 		lines = i;
 		//System.out.println(lines);
@@ -22,7 +22,7 @@ public class rev {
 		// Get the number of lines in each small block, and the number of small blocks
 		ArrayList<String> num_line = new ArrayList<>();
 		for(i = 0; i < lines; i++) {
-			if(nodes[number][i].getX() != 0 && nodes[number][i].getY() != 0 && nodes[number][i].getE() != 0 && nodes[number][i].getF() != 0 || i == lines - 1) {				
+			if(nodes[i].getX() != 0 && nodes[i].getY() != 0 && nodes[i].getE() != 0 && nodes[i].getF() != 0 || i == lines - 1) {				
 				num_line.add(String.valueOf(j+1));
 				//System.out.println(nodes[number][i].toMoveEF());
 				j = 0;
@@ -49,7 +49,7 @@ public class rev {
 		}
 		
 		for(i = 0; i < num_lines[0]; i++) 
-			if(nodes[number][i].getF() == 7800 && nodes[number][i].getZ() != 0)
+			if(nodes[i].getF() == 7800 && nodes[i].getZ() != 0)
 				k++;
 		String[] block = new String[lines-k+1];
 
@@ -57,7 +57,8 @@ public class rev {
 		
 		
 		// If the last but one line is a fast move, it can't be reverse
-		if(nodes[number][lines-2].getF() == 7800) {
+		//System.out.println(lines);
+		if(nodes[lines-2].getF() == 7800) {
 			for(i = 0; i < lines-k+1; i++)
 				block[i] = "0";
 			return block;
@@ -70,15 +71,15 @@ public class rev {
 		Node[][] smallNodes = new Node[num_sb][max+1];
 		
 		// Initialization
-				for(i = 0; i < num_sb; i++)
-					for(j = 0; j < max + 1; j++)
-							smallNodes[i][j]=new Node();
+		for(i = 0; i < num_sb; i++)
+			for(j = 0; j < max + 1; j++)
+				smallNodes[i][j]=new Node();
 		
 		// Get the nodes in new Nodes
 		k = 0;
 		for(i = 0; i < num_sb; i++) {
 			for(j = 0; j < num_lines[i]; j++) {
-				smallNodes[i][j] = nodes[number][k];
+				smallNodes[i][j] = nodes[k];
 				k++;
 			}
 		}
